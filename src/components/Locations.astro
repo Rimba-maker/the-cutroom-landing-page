@@ -1,0 +1,182 @@
+---
+const branches = [
+  {
+    name: 'SCBD',
+    area: 'Jakarta Selatan',
+    label: 'Flagship',
+    address: 'Sudirman Central Business District, Jakarta 12190',
+    hours: 'Senin–Sabtu 10:00–21:00, Minggu 11:00–20:00',
+    phone: '+62 21 5140 0001',
+  },
+  {
+    name: 'Kemang',
+    area: 'Jakarta Selatan',
+    label: '',
+    address: 'Jl. Kemang Raya No. 88, Jakarta 12730',
+    hours: 'Senin–Sabtu 10:00–21:00, Minggu 11:00–20:00',
+    phone: '+62 21 7192 0002',
+  },
+  {
+    name: 'PIK Avenue',
+    area: 'Jakarta Utara',
+    label: '',
+    address: 'PIK Avenue Mall Lt. 2, Jakarta 14470',
+    hours: 'Senin–Minggu 10:00–22:00',
+    phone: '+62 21 5698 0003',
+  },
+  {
+    name: 'Bintaro',
+    area: 'Tangerang Selatan',
+    label: '',
+    address: 'Bintaro Xchange Mall, Tangerang 15229',
+    hours: 'Senin–Sabtu 10:00–21:00, Minggu 11:00–20:00',
+    phone: '+62 21 7455 0004',
+  },
+  {
+    name: 'Surabaya West',
+    area: 'Surabaya',
+    label: '',
+    address: 'Pakuwon Mall Surabaya, Surabaya 60213',
+    hours: 'Senin–Minggu 10:00–22:00',
+    phone: '+62 31 7345 0005',
+  },
+];
+---
+
+<section
+  id="locations"
+  style="background-color: var(--color-bg); padding: clamp(64px, 8vw, 96px) 40px;"
+>
+  <div style="max-width: 1440px; margin: 0 auto;">
+
+    <!-- Header -->
+    <div style="margin-bottom: 48px;">
+      <h2
+        style="
+          font-family: var(--font-display);
+          font-size: clamp(48px, 7vw, 80px);
+          font-weight: 400;
+          color: var(--color-canvas);
+          line-height: 0.92;
+          margin-bottom: 16px;
+        "
+      >
+        Cari The Cutroom Terdekat
+      </h2>
+      <p style="font-family: var(--font-body); font-size: 16px; color: var(--color-stone); line-height: 1.6;">
+        5 cabang di Jakarta, Tangerang Selatan, dan Surabaya.
+      </p>
+    </div>
+
+    <!-- Branches list -->
+    <div style="border-top: 1px solid #2a2a2a;">
+      {branches.map((branch, idx) => (
+        <div
+          class="branch-row"
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 24px;
+            align-items: center;
+            padding: 28px 0;
+            border-bottom: 1px solid #1e1e1e;
+          "
+        >
+          <!-- Name + area -->
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+              <span
+                style="
+                  font-family: var(--font-display);
+                  font-size: 24px;
+                  color: var(--color-canvas);
+                  letter-spacing: 0.02em;
+                "
+              >
+                {branch.name}
+              </span>
+              {branch.label && (
+                <span
+                  style="
+                    font-family: var(--font-body);
+                    font-size: 10px;
+                    font-weight: 500;
+                    color: var(--color-stone);
+                    letter-spacing: 0.1em;
+                    text-transform: uppercase;
+                    border: 1px solid #2a2a2a;
+                    padding: 2px 8px;
+                    border-radius: 30px;
+                  "
+                >
+                  {branch.label}
+                </span>
+              )}
+            </div>
+            <div style="font-family: var(--font-body); font-size: 13px; color: var(--color-stone);">
+              {branch.area}
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div style="font-family: var(--font-body); font-size: 14px; color: var(--color-mute); line-height: 1.5;">
+            {branch.address}
+          </div>
+
+          <!-- Hours -->
+          <div style="font-family: var(--font-body); font-size: 13px; color: var(--color-stone); line-height: 1.5;">
+            {branch.hours}
+          </div>
+
+          <!-- CTA -->
+          <a
+            href="#book"
+            style="
+              display: inline-flex;
+              align-items: center;
+              height: 40px;
+              padding: 0 20px;
+              border-radius: 30px;
+              border: 1px solid #2a2a2a;
+              font-family: var(--font-body);
+              font-size: 13px;
+              font-weight: 500;
+              color: var(--color-stone);
+              text-decoration: none;
+              white-space: nowrap;
+              transition: border-color 0.2s, color 0.2s;
+            "
+            class="branch-cta"
+          >
+            Book Here
+          </a>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .branch-row:hover {
+    background-color: rgba(255,255,255,0.02);
+  }
+  .branch-cta:hover {
+    border-color: rgba(255,255,255,0.4) !important;
+    color: var(--color-canvas) !important;
+  }
+  @media (max-width: 900px) {
+    .branch-row {
+      grid-template-columns: 1fr 1fr !important;
+    }
+    .branch-row > :nth-child(3),
+    .branch-row > :nth-child(4) {
+      grid-column: span 1;
+    }
+  }
+  @media (max-width: 600px) {
+    .branch-row {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

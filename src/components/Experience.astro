@@ -1,0 +1,99 @@
+---
+import ExperiencePerks from './ExperiencePerks';
+---
+
+<section
+  id="experience"
+  style="position: relative; overflow: hidden; background-color: var(--color-surface);"
+>
+  <!-- Parallax background image -->
+  <div
+    class="parallax-bg"
+    style="
+      position: absolute;
+      inset: -15%;
+      background-image: url('https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      will-change: transform;
+    "
+    aria-hidden="true"
+  ></div>
+
+  <!-- Dark overlay -->
+  <div
+    style="position: absolute; inset: 0; background: rgba(13,13,13,0.82);"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Content -->
+  <div
+    style="
+      position: relative;
+      z-index: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: clamp(80px, 10vw, 120px) 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    "
+    class="experience-grid"
+  >
+    <!-- Left: Text -->
+    <div>
+      <h2
+        style="
+          font-family: var(--font-display);
+          font-size: clamp(48px, 6vw, 76px);
+          font-weight: 400;
+          color: var(--color-canvas);
+          line-height: 0.92;
+          margin-bottom: 24px;
+          letter-spacing: -0.01em;
+        "
+      >
+        Lebih Dari Sekadar Potong Rambut
+      </h2>
+      <p
+        style="
+          font-family: var(--font-body);
+          font-size: 17px;
+          color: var(--color-stone);
+          line-height: 1.7;
+          max-width: 420px;
+        "
+      >
+        Di The Cutroom, setiap kunjungan adalah ritual. Welcome coffee, hot towel,
+        head massage, dan barber yang dengerin maumu — bukan cuma pakai gunting otomatis.
+      </p>
+    </div>
+
+    <!-- Right: Perks grid (React island for Phosphor icons) -->
+    <ExperiencePerks client:visible />
+  </div>
+</section>
+
+<style>
+  @media (max-width: 768px) {
+    .experience-grid {
+      grid-template-columns: 1fr !important;
+      gap: 40px !important;
+    }
+  }
+</style>
+
+<script>
+  const bg = document.querySelector('.parallax-bg') as HTMLElement | null;
+  if (bg) {
+    window.addEventListener('scroll', () => {
+      const section = bg.closest('section') as HTMLElement;
+      const rect = section.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight) {
+        const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+        bg.style.transform = `translateY(${progress * 80 - 40}px)`;
+      }
+    }, { passive: true });
+  }
+</script>

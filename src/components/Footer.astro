@@ -1,0 +1,236 @@
+---
+const navLinks = [
+  { label: 'Services', href: '#services' },
+  { label: 'Lookbook', href: '#lookbook' },
+  { label: 'Tim', href: '#barbers' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Membership', href: '#membership' },
+  { label: 'Lokasi', href: '#locations' },
+];
+
+const socials = [
+  { label: 'Instagram', handle: '@thecutroom.id', href: '#' },
+  { label: 'TikTok', handle: '@thecutroom', href: '#' },
+  { label: 'YouTube', handle: 'The Cutroom', href: '#' },
+];
+---
+
+<footer
+  style="
+    background-color: var(--color-ink);
+    border-top: 1px solid #2a2a2a;
+    padding: 64px 40px 32px;
+  "
+>
+  <div style="max-width: 1440px; margin: 0 auto;">
+
+    <!-- Top grid -->
+    <div
+      style="
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 48px;
+        margin-bottom: 64px;
+      "
+      class="footer-grid"
+    >
+      <!-- Brand -->
+      <div>
+        <div
+          style="
+            font-family: var(--font-display);
+            font-size: 32px;
+            color: var(--color-canvas);
+            letter-spacing: 0.06em;
+            margin-bottom: 16px;
+          "
+        >
+          THE CUTROOM
+        </div>
+        <p
+          style="
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--color-stone);
+            line-height: 1.7;
+            max-width: 300px;
+            margin-bottom: 24px;
+          "
+        >
+          Barbershop & salon modern untuk pria dan wanita yang serius tentang grooming.
+          Walk-in welcome, tapi book online aman dari antrian.
+        </p>
+        <p
+          style="
+            font-family: var(--font-body);
+            font-size: 12px;
+            color: var(--color-stone);
+            font-style: italic;
+            letter-spacing: 0.05em;
+          "
+        >
+          "Crafted, not just cut."
+        </p>
+      </div>
+
+      <!-- Nav links -->
+      <div>
+        <div
+          style="
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--color-stone);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+          "
+        >
+          Navigate
+        </div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+          {navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                style="
+                  font-family: var(--font-body);
+                  font-size: 14px;
+                  color: var(--color-stone);
+                  text-decoration: none;
+                  transition: color 0.2s;
+                "
+                class="footer-link"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Hours -->
+      <div>
+        <div
+          style="
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--color-stone);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+          "
+        >
+          Jam Buka
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          {[
+            { day: 'Senin – Sabtu', hours: '10:00 – 21:00' },
+            { day: 'Minggu', hours: '11:00 – 20:00' },
+          ].map((h) => (
+            <div>
+              <div style="font-family: var(--font-body); font-size: 13px; color: var(--color-stone); margin-bottom: 2px;">
+                {h.day}
+              </div>
+              <div style="font-family: var(--font-display); font-size: 18px; color: var(--color-canvas); letter-spacing: 0.04em;">
+                {h.hours}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Socials -->
+      <div>
+        <div
+          style="
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--color-stone);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+          "
+        >
+          Follow Us
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          {socials.map((s) => (
+            <a
+              href={s.href}
+              style="text-decoration: none;"
+            >
+              <div style="font-family: var(--font-body); font-size: 11px; color: var(--color-stone); letter-spacing: 0.08em; margin-bottom: 2px; text-transform: uppercase;">
+                {s.label}
+              </div>
+              <div style="font-family: var(--font-body); font-size: 14px; color: var(--color-canvas); transition: color 0.2s;" class="footer-link">
+                {s.handle}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div
+      style="
+        border-top: 1px solid #1e1e1e;
+        padding-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      "
+    >
+      <span
+        style="
+          font-family: var(--font-body);
+          font-size: 12px;
+          color: var(--color-stone);
+          letter-spacing: 0.03em;
+        "
+      >
+        © 2025 The Cutroom. All rights reserved.
+      </span>
+      <div style="display: flex; gap: 20px;">
+        {['Privacy Policy', 'Terms of Service'].map((item) => (
+          <a
+            href="#"
+            style="
+              font-family: var(--font-body);
+              font-size: 12px;
+              color: var(--color-stone);
+              text-decoration: none;
+              letter-spacing: 0.03em;
+              transition: color 0.2s;
+            "
+            class="footer-link"
+          >
+            {item}
+          </a>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .footer-link:hover {
+    color: var(--color-canvas) !important;
+  }
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr !important;
+    }
+  }
+  @media (max-width: 560px) {
+    .footer-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

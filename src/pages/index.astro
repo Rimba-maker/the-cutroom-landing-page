@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero';
+import Services from '../components/Services';
+import Lookbook from '../components/Lookbook';
+import Barbers from '../components/Barbers';
+import Experience from '../components/Experience.astro';
+import Pricing from '../components/Pricing.astro';
+import Membership from '../components/Membership';
+import Locations from '../components/Locations.astro';
+import BookOnline from '../components/BookOnline';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Navbar />
+  <main>
+    <Hero client:load />
+    <Services client:visible />
+    <Lookbook client:visible />
+    <Barbers client:visible />
+    <Experience />
+    <Pricing />
+    <Membership client:visible />
+    <Locations />
+    <BookOnline client:idle />
+  </main>
+  <Footer />
+</Layout>
