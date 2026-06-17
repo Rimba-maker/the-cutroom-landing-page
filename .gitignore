@@ -25,4 +25,3 @@ pnpm-debug.log*
 
 # internal docs — keep off public repo
 *.md
-!CLAUDE.md
