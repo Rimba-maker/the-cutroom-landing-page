@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# internal docs — keep off public repo
+*.md
+!CLAUDE.md
