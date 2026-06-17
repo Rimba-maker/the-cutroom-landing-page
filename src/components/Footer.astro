@@ -19,7 +19,7 @@ const socials = [
   style="
     background-color: var(--color-ink);
     border-top: 1px solid #2a2a2a;
-    padding: 64px 40px 32px;
+    padding: 64px var(--pad-x) 32px;
   "
 >
   <div style="max-width: 1440px; margin: 0 auto;">
@@ -35,7 +35,7 @@ const socials = [
       class="footer-grid"
     >
       <!-- Brand -->
-      <div>
+      <div class="footer-brand">
         <div
           style="
             font-family: var(--font-display);
@@ -74,7 +74,7 @@ const socials = [
       </div>
 
       <!-- Nav links -->
-      <div>
+      <div class="footer-nav">
         <div
           style="
             font-family: var(--font-body);
@@ -110,7 +110,7 @@ const socials = [
       </div>
 
       <!-- Hours -->
-      <div>
+      <div class="footer-hours">
         <div
           style="
             font-family: var(--font-body);
@@ -142,7 +142,7 @@ const socials = [
       </div>
 
       <!-- Socials -->
-      <div>
+      <div class="footer-social">
         <div
           style="
             font-family: var(--font-body);
@@ -176,6 +176,7 @@ const socials = [
 
     <!-- Bottom bar -->
     <div
+      class="footer-bottom"
       style="
         border-top: 1px solid #1e1e1e;
         padding-top: 24px;
@@ -223,14 +224,43 @@ const socials = [
   .footer-link:hover {
     color: var(--color-canvas) !important;
   }
+
   @media (max-width: 900px) {
     .footer-grid {
       grid-template-columns: 1fr 1fr !important;
     }
   }
-  @media (max-width: 560px) {
+
+  @media (max-width: 767px) {
     .footer-grid {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: 1fr 1fr !important;
+      grid-template-areas:
+        "brand  brand"
+        "nav    hours"
+        "social social" !important;
+      gap: 36px !important;
+    }
+    .footer-brand  { grid-area: brand; }
+    .footer-nav    { grid-area: nav; }
+    .footer-hours  { grid-area: hours; }
+    .footer-social {
+      grid-area: social;
+      border-top: 1px solid #1e1e1e;
+      padding-top: 28px;
+    }
+
+    /* Socials: horizontal on mobile */
+    .footer-social > div {
+      flex-direction: row !important;
+      gap: 24px !important;
+      flex-wrap: wrap;
+    }
+
+    /* Bottom bar: stack on mobile */
+    .footer-bottom {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
     }
   }
 </style>

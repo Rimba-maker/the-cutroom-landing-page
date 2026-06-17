@@ -83,7 +83,11 @@ export default function BookOnline() {
       id="book"
       style={{
         backgroundColor: 'var(--color-surface)',
-        padding: 'clamp(64px, 8vw, 96px) 40px',
+        borderTop: '1px solid #2a2a2a',
+        paddingTop: 'var(--section-y)',
+        paddingBottom: 'var(--section-y)',
+        paddingLeft: 'var(--pad-x)',
+        paddingRight: 'var(--pad-x)',
       }}
     >
       <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
@@ -152,7 +156,7 @@ export default function BookOnline() {
             style={{
               backgroundColor: 'var(--color-bg)',
               border: '1px solid #2a2a2a',
-              padding: '40px',
+              padding: 'clamp(24px, 4vw, 40px)',
             }}
           >
             {submitted ? (
@@ -241,8 +245,8 @@ export default function BookOnline() {
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                           {[
-                            { label: 'Nama lengkap', value: name, onChange: setName, type: 'text', placeholder: 'John Doe' },
-                            { label: 'No. WhatsApp', value: phone, onChange: setPhone, type: 'tel', placeholder: '+62 812 3456 7890' },
+                            { label: 'Nama lengkap', value: name, onChange: setName, type: 'text', placeholder: 'John Doe', inputMode: 'text' },
+                            { label: 'No. WhatsApp', value: phone, onChange: setPhone, type: 'tel', placeholder: '+62 812 3456 7890', inputMode: 'tel' },
                             { label: 'Tanggal', value: date, onChange: setDate, type: 'date', placeholder: '' },
                             { label: 'Jam', value: time, onChange: setTime, type: 'time', placeholder: '' },
                           ].map((field) => (
@@ -263,6 +267,7 @@ export default function BookOnline() {
                               </label>
                               <input
                                 type={field.type}
+                                inputMode={(field as any).inputMode}
                                 value={field.value}
                                 onChange={(e) => field.onChange(e.target.value)}
                                 placeholder={field.placeholder}

@@ -77,7 +77,7 @@ export default function Hero() {
       style={{
         position: 'relative',
         width: '100%',
-        minHeight: '100vh',
+        minHeight: '100svh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'flex-end',
@@ -117,7 +117,7 @@ export default function Hero() {
           zIndex: 1,
           maxWidth: '1440px',
           margin: '0 auto',
-          padding: '0 40px 80px',
+          padding: '0 var(--pad-x) 80px',
           width: '100%',
         }}
       >
@@ -141,7 +141,7 @@ export default function Hero() {
         </motion.p>
 
         {/* Headline — split text per character */}
-        <div style={{ perspective: '600px', marginBottom: '28px' }}>
+        <h1 style={{ perspective: '600px', marginBottom: '28px', fontWeight: 'inherit', fontSize: 'inherit' }}>
           {HEADLINE.map((line, lineIdx) => (
             <motion.div
               key={lineIdx}
@@ -169,7 +169,7 @@ export default function Hero() {
               ))}
             </motion.div>
           ))}
-        </div>
+        </h1>
 
         {/* Subheadline */}
         <motion.p
@@ -263,20 +263,19 @@ export default function Hero() {
           animate="visible"
           custom={1.0}
           style={{
-            display: 'flex',
-            gap: '0',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
             borderTop: '1px solid rgba(255,255,255,0.12)',
             paddingTop: '28px',
-            flexWrap: 'wrap',
           }}
         >
           {STATS.map((stat, idx) => (
             <div
               key={idx}
               style={{
-                paddingRight: '48px',
-                marginRight: idx < STATS.length - 1 ? '48px' : 0,
+                paddingRight: '16px',
                 borderRight: idx < STATS.length - 1 ? '1px solid rgba(255,255,255,0.1)' : 'none',
+                paddingLeft: idx > 0 ? '16px' : 0,
               }}
             >
               <div

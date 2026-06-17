@@ -18,21 +18,20 @@ interface Photo {
   src: string;
   style: string;
   category: Category;
-  tall?: boolean;
 }
 
 const PHOTOS: Photo[] = [
-  { id: 'p1', src: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80', style: 'Classic Cut', category: 'classic', tall: true },
+  { id: 'p1', src: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80', style: 'Classic Cut', category: 'classic' },
   { id: 'p2', src: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80', style: 'Low Fade', category: 'fade' },
-  { id: 'p3', src: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600&q=80', style: 'Hair Coloring', category: 'color', tall: true },
+  { id: 'p3', src: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=600&q=80', style: 'Hair Coloring', category: 'color' },
   { id: 'p4', src: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=80', style: 'High Fade', category: 'fade' },
   { id: 'p5', src: 'https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=600&q=80', style: 'Full Beard', category: 'beard' },
-  { id: 'p6', src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80', style: "Women's Cut", category: 'womens', tall: true },
+  { id: 'p6', src: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80', style: "Women's Cut", category: 'womens' },
   { id: 'p7', src: 'https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80', style: 'Textured Crop', category: 'classic' },
   { id: 'p8', src: 'https://images.unsplash.com/photo-1534297635766-a262cdcb8ee4?w=600&q=80', style: 'Beard Shaping', category: 'beard' },
   { id: 'p9', src: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80', style: 'Blowout Style', category: 'womens' },
   { id: 'p10', src: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&q=80', style: 'Color Treatment', category: 'color' },
-  { id: 'p11', src: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80', style: 'Slick Back', category: 'classic', tall: true },
+  { id: 'p11', src: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80', style: 'Slick Back', category: 'classic' },
   { id: 'p12', src: 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&q=80', style: 'Long Layers', category: 'longhair' },
 ];
 
@@ -47,13 +46,17 @@ export default function Lookbook() {
       id="lookbook"
       style={{
         backgroundColor: 'var(--color-surface)',
-        padding: 'clamp(64px, 8vw, 96px) 40px',
+        borderTop: '1px solid #2a2a2a',
+        paddingTop: 'var(--section-y)',
+        paddingBottom: 'var(--section-y)',
+        paddingLeft: 'var(--pad-x)',
+        paddingRight: 'var(--pad-x)',
       }}
     >
       <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
 
         {/* Header */}
-        <div style={{ marginBottom: '40px' }}>
+        <div style={{ marginBottom: '56px' }}>
           <h2
             style={{
               fontFamily: 'var(--font-display)',
@@ -97,7 +100,7 @@ export default function Lookbook() {
                   onClick={() => setActive(f.key)}
                   style={{
                     position: 'relative',
-                    height: '36px',
+                    height: '44px',
                     padding: '0 18px',
                     borderRadius: '30px',
                     border: '1px solid',
@@ -133,9 +136,10 @@ export default function Lookbook() {
           </div>
         </LayoutGroup>
 
-        {/* Masonry grid */}
+        {/* Desktop: Masonry grid */}
         <motion.div
           layout
+          className="lookbook-desktop"
           style={{
             columns: 'auto 280px',
             columnGap: '1px',
@@ -158,7 +162,7 @@ export default function Lookbook() {
                   marginBottom: '1px',
                   cursor: 'pointer',
                   overflow: 'hidden',
-                  aspectRatio: photo.tall ? '3/4' : '4/5',
+                  aspectRatio: '4/5',
                   backgroundColor: 'var(--color-surface-2)',
                 }}
                 onClick={() => setLightbox(photo)}
@@ -181,7 +185,6 @@ export default function Lookbook() {
                     (e.currentTarget as HTMLImageElement).style.transform = 'scale(1)';
                   }}
                 />
-                {/* Hover overlay */}
                 <motion.div
                   initial={{ y: '100%' }}
                   whileHover={{ y: '0%' }}
@@ -212,6 +215,61 @@ export default function Lookbook() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Mobile: Horizontal swipe */}
+        <div className="lookbook-mobile">
+          {filtered.map((photo) => (
+            <div
+              key={photo.id}
+              className="lookbook-swipe-card"
+              onClick={() => setLightbox(photo)}
+              style={{
+                position: 'relative',
+                cursor: 'pointer',
+                overflow: 'hidden',
+                aspectRatio: '4/5',
+                backgroundColor: 'var(--color-surface-2)',
+                flexShrink: 0,
+              }}
+            >
+              <img
+                src={photo.src}
+                alt={photo.style}
+                loading="lazy"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
+              {/* Label always visible on mobile */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: '20px 14px 12px',
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)',
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '12px',
+                    fontWeight: 500,
+                    color: 'var(--color-canvas)',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {photo.style}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Lightbox */}

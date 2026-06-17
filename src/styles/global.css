@@ -38,10 +38,81 @@
   --spacing-section: 48px;
 }
 
+:root {
+  --pad-x: clamp(20px, 5vw, 40px);
+  --section-y: clamp(72px, 9vw, 112px);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* Barbers: flip-card desktop, swipe mobile */
+.barbers-desktop { display: grid; }
+.barbers-mobile  { display: none; }
+
+@media (max-width: 767px) {
+  .barbers-desktop { display: none; }
+  .barbers-mobile {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    scrollbar-width: none;
+    margin-left: calc(var(--pad-x) * -1);
+    margin-right: calc(var(--pad-x) * -1);
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+    padding-bottom: 4px;
+  }
+  .barbers-mobile::-webkit-scrollbar { display: none; }
+  .barbers-swipe-card {
+    flex: 0 0 75vw;
+    scroll-snap-align: start;
+  }
+}
+
+/* Lookbook: masonry desktop, swipe mobile */
+.lookbook-desktop { display: block; }
+.lookbook-mobile  { display: none; }
+
+@media (max-width: 767px) {
+  .lookbook-desktop { display: none; }
+  .lookbook-mobile {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    scrollbar-width: none;
+    margin-left: calc(var(--pad-x) * -1);
+    margin-right: calc(var(--pad-x) * -1);
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+    padding-bottom: 4px;
+  }
+  .lookbook-mobile::-webkit-scrollbar { display: none; }
+  .lookbook-swipe-card {
+    flex: 0 0 75vw;
+    scroll-snap-align: start;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 html {

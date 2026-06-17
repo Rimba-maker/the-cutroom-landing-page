@@ -25,7 +25,7 @@ const addOns = [
 
 <section
   id="pricing"
-  style="background-color: var(--color-bg); padding: clamp(64px, 8vw, 96px) 40px;"
+  style="background-color: var(--color-bg); border-top: 1px solid #2a2a2a; padding: var(--section-y) var(--pad-x);"
 >
   <div style="max-width: 1440px; margin: 0 auto;">
 
@@ -48,10 +48,10 @@ const addOns = [
       </p>
     </div>
 
-    <!-- Tables grid -->
+    <!-- Desktop: 2-column grid -->
     <div
+      class="pricing-desktop"
       style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background-color: #2a2a2a;"
-      class="pricing-grid"
     >
       <!-- For Him -->
       <div style="background-color: var(--color-surface);">
@@ -87,14 +87,7 @@ const addOns = [
                 {s.duration}
               </div>
             </div>
-            <div
-              style="
-                font-family: var(--font-display);
-                font-size: 20px;
-                color: var(--color-canvas);
-                white-space: nowrap;
-              "
-            >
+            <div style="font-family: var(--font-display); font-size: 20px; color: var(--color-canvas); white-space: nowrap;">
               {s.price}
             </div>
           </div>
@@ -135,27 +128,14 @@ const addOns = [
                 {s.duration}
               </div>
             </div>
-            <div
-              style="
-                font-family: var(--font-display);
-                font-size: 20px;
-                color: var(--color-canvas);
-                white-space: nowrap;
-              "
-            >
+            <div style="font-family: var(--font-display); font-size: 20px; color: var(--color-canvas); white-space: nowrap;">
               {s.price}
             </div>
           </div>
         ))}
 
         <!-- Add-ons block -->
-        <div
-          style="
-            padding: 20px 24px 10px;
-            border-top: 1px solid #2a2a2a;
-            margin-top: 8px;
-          "
-        >
+        <div style="padding: 20px 24px 10px; border-top: 1px solid #2a2a2a; margin-top: 8px;">
           <div
             style="
               font-family: var(--font-body);
@@ -170,14 +150,7 @@ const addOns = [
             Add-Ons
           </div>
           {addOns.map((a) => (
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                padding: 10px 0;
-                border-bottom: 1px solid #1e1e1e;
-              "
-            >
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #1e1e1e;">
               <span style="font-family: var(--font-body); font-size: 14px; color: var(--color-mute);">{a.name}</span>
               <span style="font-family: var(--font-display); font-size: 18px; color: var(--color-stone);">{a.price}</span>
             </div>
@@ -186,16 +159,161 @@ const addOns = [
       </div>
     </div>
 
+    <!-- Mobile: tab switcher -->
+    <div class="pricing-mobile">
+
+      <!-- Tab buttons -->
+      <div class="pricing-tabs">
+        <button class="pricing-tab active" data-tab="him">For Him</button>
+        <button class="pricing-tab" data-tab="her">For Her</button>
+        <button class="pricing-tab" data-tab="addons">Add-Ons</button>
+      </div>
+
+      <!-- Panel: For Him -->
+      <div class="pricing-panel" data-panel="him">
+        {himServices.map((s) => (
+          <div class="price-row-mobile">
+            <div>
+              <div class="price-name">{s.name}</div>
+              <div class="price-duration">{s.duration}</div>
+            </div>
+            <div class="price-value">{s.price}</div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Panel: For Her -->
+      <div class="pricing-panel hidden" data-panel="her">
+        {herServices.map((s) => (
+          <div class="price-row-mobile">
+            <div>
+              <div class="price-name">{s.name}</div>
+              <div class="price-duration">{s.duration}</div>
+            </div>
+            <div class="price-value">{s.price}</div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Panel: Add-Ons -->
+      <div class="pricing-panel hidden" data-panel="addons">
+        {addOns.map((a) => (
+          <div class="price-row-mobile">
+            <div class="price-name">{a.name}</div>
+            <div class="price-value">{a.price}</div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
   </div>
 </section>
 
 <style>
+  /* ── Desktop ── */
+  .pricing-mobile { display: none; }
+
   .price-row:hover {
     background-color: var(--color-surface-2);
   }
-  @media (max-width: 640px) {
-    .pricing-grid {
-      grid-template-columns: 1fr !important;
+
+  /* ── Mobile ── */
+  @media (max-width: 767px) {
+    .pricing-desktop { display: none !important; }
+    .pricing-mobile  { display: block; }
+
+    /* Tab bar */
+    .pricing-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 0;
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 0;
+    }
+
+    .pricing-tab {
+      flex: 1;
+      height: 44px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-stone);
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-bottom: -1px;
+    }
+
+    .pricing-tab.active {
+      color: var(--color-canvas);
+      border-bottom-color: var(--color-canvas);
+    }
+
+    /* Panels */
+    .pricing-panel {
+      border: 1px solid #2a2a2a;
+      border-top: none;
+      background-color: var(--color-surface);
+    }
+
+    .pricing-panel.hidden { display: none; }
+
+    /* Rows inside panel */
+    .price-row-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .price-row-mobile:last-child { border-bottom: none; }
+
+    .price-name {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-canvas);
+    }
+
+    .price-duration {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--color-stone);
+      margin-top: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    .price-value {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--color-canvas);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
   }
 </style>
+
+<script>
+  const tabs = document.querySelectorAll('.pricing-tab');
+  const panels = document.querySelectorAll('.pricing-panel');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const target = (tab as HTMLElement).dataset.tab;
+
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      panels.forEach((panel) => {
+        const el = panel as HTMLElement;
+        el.classList.toggle('hidden', el.dataset.panel !== target);
+      });
+    });
+  });
+</script>

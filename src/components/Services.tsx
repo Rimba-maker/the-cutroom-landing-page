@@ -182,7 +182,11 @@ export default function Services() {
       ref={sectionRef}
       style={{
         backgroundColor: 'var(--color-bg)',
-        padding: 'clamp(64px, 8vw, 96px) 40px',
+        borderTop: '1px solid #2a2a2a',
+        paddingTop: 'var(--section-y)',
+        paddingBottom: 'var(--section-y)',
+        paddingLeft: 'var(--pad-x)',
+        paddingRight: 'var(--pad-x)',
         overflow: 'hidden',
       }}
     >
@@ -191,7 +195,7 @@ export default function Services() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: 'easeOut' }}
-          style={{ marginBottom: '48px' }}
+          style={{ marginBottom: '56px' }}
         >
           <h2
             style={{
@@ -224,7 +228,7 @@ export default function Services() {
                 onClick={() => handleTab(tab.key)}
                 style={{
                   position: 'relative',
-                  height: '40px',
+                  height: '44px',
                   padding: '0 20px',
                   borderRadius: '30px',
                   border: 'none',

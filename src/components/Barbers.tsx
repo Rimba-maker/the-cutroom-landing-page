@@ -72,6 +72,7 @@ function BarberCard({ barber }: { barber: (typeof BARBERS)[0] }) {
       }}
       onMouseEnter={() => setFlipped(true)}
       onMouseLeave={() => setFlipped(false)}
+      onClick={() => setFlipped((f) => !f)}
     >
       <motion.div
         animate={{ rotateY: flipped ? 180 : 0 }}
@@ -216,10 +217,11 @@ function BarberCard({ barber }: { barber: (typeof BARBERS)[0] }) {
 
           <a
             href="#book"
+            onClick={(e) => e.stopPropagation()}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              height: '40px',
+              height: '44px',
               padding: '0 22px',
               backgroundColor: 'var(--color-canvas)',
               color: 'var(--color-ink)',
@@ -250,7 +252,11 @@ export default function Barbers() {
       ref={ref}
       style={{
         backgroundColor: 'var(--color-bg)',
-        padding: 'clamp(64px, 8vw, 96px) 40px',
+        borderTop: '1px solid #2a2a2a',
+        paddingTop: 'var(--section-y)',
+        paddingBottom: 'var(--section-y)',
+        paddingLeft: 'var(--pad-x)',
+        paddingRight: 'var(--pad-x)',
       }}
     >
       <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
@@ -260,7 +266,7 @@ export default function Barbers() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55 }}
-          style={{ marginBottom: '48px' }}
+          style={{ marginBottom: '56px' }}
         >
           <h2
             style={{
@@ -283,17 +289,17 @@ export default function Barbers() {
               lineHeight: 1.6,
             }}
           >
-            Hover untuk lihat spesialisasi. Klik Book untuk langsung pilih barber pilihanmu.
+            Hover card untuk lihat spesialisasi, atau swipe untuk jelajahi tim kami.
           </p>
         </motion.div>
 
-        {/* Cards */}
+        {/* Desktop: flip cards grid */}
         <motion.div
+          className="barbers-desktop"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           style={{
-            display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
             gap: '1px',
             backgroundColor: '#2a2a2a',
@@ -304,6 +310,109 @@ export default function Barbers() {
             <BarberCard key={barber.name} barber={barber} />
           ))}
         </motion.div>
+
+        {/* Mobile: horizontal swipe */}
+        <div className="barbers-mobile">
+          {BARBERS.map((barber) => (
+            <div
+              key={barber.name}
+              className="barbers-swipe-card"
+              style={{
+                backgroundColor: 'var(--color-surface)',
+                border: '1px solid #2a2a2a',
+                overflow: 'hidden',
+                flexShrink: 0,
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              {/* Photo */}
+              <div style={{ position: 'relative', aspectRatio: '3/4', flexShrink: 0 }}>
+                <img
+                  src={barber.img}
+                  alt={barber.name}
+                  loading="lazy"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'top',
+                    display: 'block',
+                  }}
+                />
+              </div>
+
+              {/* Info */}
+              <div style={{ padding: '20px 18px', display: 'flex', flexDirection: 'column', gap: '12px', flex: 1 }}>
+                <div>
+                  <div style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '22px',
+                    color: 'var(--color-canvas)',
+                    letterSpacing: '0.02em',
+                    marginBottom: '4px',
+                  }}>
+                    {barber.name}
+                  </div>
+                  <div style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '12px',
+                    fontWeight: 500,
+                    color: 'var(--color-stone)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                  }}>
+                    {barber.role} · {barber.years}
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                  {barber.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      style={{
+                        padding: '4px 10px',
+                        border: '1px solid #2a2a2a',
+                        borderRadius: '30px',
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '11px',
+                        fontWeight: 500,
+                        color: 'var(--color-stone)',
+                        letterSpacing: '0.04em',
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <a
+                  href="#book"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '44px',
+                    padding: '0 20px',
+                    backgroundColor: 'var(--color-canvas)',
+                    color: 'var(--color-ink)',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '13px',
+                    fontWeight: 500,
+                    letterSpacing: '0.05em',
+                    textDecoration: 'none',
+                    borderRadius: '30px',
+                    marginTop: 'auto',
+                  }}
+                >
+                  Book {barber.name.split(' ')[0]}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

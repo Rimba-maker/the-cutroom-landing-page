@@ -14,7 +14,7 @@ const navLinks = [
 >
   <nav
     class="flex items-center justify-between"
-    style="max-width: 1440px; margin: 0 auto; padding: 0 40px; height: 64px;"
+    style="max-width: 1440px; margin: 0 auto; padding: 0 var(--pad-x); height: 64px;"
   >
     <!-- Logo -->
     <a
@@ -51,7 +51,7 @@ const navLinks = [
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          height: 40px;
+          height: 44px;
           padding: 0 24px;
           background-color: var(--color-canvas);
           color: var(--color-ink);
@@ -73,7 +73,7 @@ const navLinks = [
       <button
         id="hamburger"
         class="flex md:hidden flex-col justify-center items-center"
-        style="width: 40px; height: 40px; background: none; border: none; cursor: pointer; gap: 5px;"
+        style="width: 44px; height: 44px; background: none; border: none; cursor: pointer; gap: 5px;"
         aria-label="Toggle menu"
         aria-expanded="false"
       >
@@ -89,7 +89,7 @@ const navLinks = [
     id="mobile-menu"
     style="
       display: none;
-      padding: 16px 40px 24px;
+      padding: 16px var(--pad-x) 24px;
       border-top: 1px solid #2a2a2a;
     "
   >

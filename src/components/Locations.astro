@@ -45,12 +45,12 @@ const branches = [
 
 <section
   id="locations"
-  style="background-color: var(--color-bg); padding: clamp(64px, 8vw, 96px) 40px;"
+  style="background-color: var(--color-bg); border-top: 1px solid #2a2a2a; padding: var(--section-y) var(--pad-x);"
 >
   <div style="max-width: 1440px; margin: 0 auto;">
 
     <!-- Header -->
-    <div style="margin-bottom: 48px;">
+    <div style="margin-bottom: 56px;">
       <h2
         style="
           font-family: var(--font-display);
@@ -68,9 +68,9 @@ const branches = [
       </p>
     </div>
 
-    <!-- Branches list -->
-    <div style="border-top: 1px solid #2a2a2a;">
-      {branches.map((branch, idx) => (
+    <!-- Desktop: table rows -->
+    <div class="locations-desktop" style="border-top: 1px solid #2a2a2a;">
+      {branches.map((branch) => (
         <div
           class="branch-row"
           style="
@@ -134,7 +134,7 @@ const branches = [
             style="
               display: inline-flex;
               align-items: center;
-              height: 40px;
+              height: 44px;
               padding: 0 20px;
               border-radius: 30px;
               border: 1px solid #2a2a2a;
@@ -154,29 +154,209 @@ const branches = [
       ))}
     </div>
 
+    <!-- Mobile: accordion -->
+    <div class="locations-mobile" style="border-top: 1px solid #2a2a2a;">
+      {branches.map((branch, idx) => (
+        <div class="accordion-item" style="border-bottom: 1px solid #2a2a2a;">
+
+          <!-- Trigger -->
+          <button
+            class="accordion-trigger"
+            data-index={idx}
+            aria-expanded="false"
+          >
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span class="accordion-name">{branch.name}</span>
+              {branch.label && (
+                <span class="accordion-badge">{branch.label}</span>
+              )}
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span class="accordion-area">{branch.area}</span>
+              <!-- Chevron -->
+              <svg
+                class="accordion-chevron"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </button>
+
+          <!-- Body -->
+          <div class="accordion-body" hidden>
+            <div class="accordion-detail">
+              <span class="detail-label">Alamat</span>
+              <span class="detail-value">{branch.address}</span>
+            </div>
+            <div class="accordion-detail">
+              <span class="detail-label">Jam Buka</span>
+              <span class="detail-value">{branch.hours}</span>
+            </div>
+            <div class="accordion-detail">
+              <span class="detail-label">Telepon</span>
+              <span class="detail-value">{branch.phone}</span>
+            </div>
+            <a href="#book" class="accordion-cta">
+              Book di {branch.name}
+            </a>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
   </div>
 </section>
 
 <style>
-  .branch-row:hover {
-    background-color: rgba(255,255,255,0.02);
-  }
+  /* ── Desktop ── */
+  .locations-mobile { display: none; }
+
+  .branch-row:hover { background-color: rgba(255,255,255,0.02); }
   .branch-cta:hover {
     border-color: rgba(255,255,255,0.4) !important;
     color: var(--color-canvas) !important;
   }
+
   @media (max-width: 900px) {
-    .branch-row {
-      grid-template-columns: 1fr 1fr !important;
-    }
-    .branch-row > :nth-child(3),
-    .branch-row > :nth-child(4) {
-      grid-column: span 1;
-    }
+    .branch-row { grid-template-columns: 1fr 1fr !important; }
   }
-  @media (max-width: 600px) {
-    .branch-row {
-      grid-template-columns: 1fr !important;
+
+  /* ── Mobile ── */
+  @media (max-width: 767px) {
+    .locations-desktop { display: none !important; }
+    .locations-mobile  { display: block; }
+
+    /* Trigger */
+    .accordion-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .accordion-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--color-canvas);
+      letter-spacing: 0.02em;
+    }
+
+    .accordion-badge {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-stone);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid #2a2a2a;
+      padding: 2px 8px;
+      border-radius: 30px;
+    }
+
+    .accordion-area {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--color-stone);
+      white-space: nowrap;
+    }
+
+    .accordion-chevron {
+      color: var(--color-stone);
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .accordion-trigger[aria-expanded="true"] .accordion-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Body */
+    .accordion-body {
+      padding-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .accordion-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .detail-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-stone);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-mute);
+      line-height: 1.5;
+    }
+
+    .accordion-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      padding: 0 24px;
+      margin-top: 4px;
+      border-radius: 30px;
+      border: 1px solid #2a2a2a;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-stone);
+      text-decoration: none;
+      align-self: flex-start;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .accordion-cta:hover {
+      border-color: rgba(255,255,255,0.4);
+      color: var(--color-canvas);
     }
   }
 </style>
+
+<script>
+  document.querySelectorAll('.accordion-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const btn = trigger as HTMLButtonElement;
+      const item = btn.closest('.accordion-item') as HTMLElement;
+      const body = item.querySelector('.accordion-body') as HTMLElement;
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      // Close all others
+      document.querySelectorAll('.accordion-trigger').forEach((t) => {
+        const b = t.closest('.accordion-item')?.querySelector('.accordion-body') as HTMLElement | null;
+        t.setAttribute('aria-expanded', 'false');
+        if (b) b.hidden = true;
+      });
+
+      // Toggle this one
+      if (!isOpen) {
+        btn.setAttribute('aria-expanded', 'true');
+        body.hidden = false;
+      }
+    });
+  });
+</script>
